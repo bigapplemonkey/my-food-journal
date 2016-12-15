@@ -87,7 +87,7 @@ td {
 }
 
 .logo {
-    margin: 1.1em 0 0.6em 0;
+    margin: 1.5em 0 0.6em 0;
     display: inline;
     float: left;
     width: 65%;
@@ -133,7 +133,8 @@ td {
     top: 30%;
 }
 
-.ui.statistics {
+.ui.statistics,
+.ui.statistics .statistic>.value {
     margin: 0 auto;
 }
 
@@ -141,7 +142,7 @@ td {
     width: 60%;
     display: inline;
     position: relative;
-    top: 0;
+    top: 1px;
     right: -5%;
 }
 
@@ -560,3 +561,149 @@ html .clear-completed:active {
         display: block;
     }
 }
+
+@media screen and (max-width: 780px) {
+    /*body {
+        background-color: red;
+    }*/
+    .ui.statistics .statistic>.value {
+        font-size: 3.2rem !important;
+    }
+    .statistic {
+        margin: 1em auto !important;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .logo {
+        margin: 1em 0 0.6em 1em;
+        width: 65%;
+    }
+    .datepicker {
+        right: 2%;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    canvas {
+        position: relative;
+        left: calc(50% - 130px);
+    }
+    .ui.statistics .statistic>.value {
+        font-size: 2.6rem !important;
+    }
+    .ui.statistics .statistic>.label {
+        font-size: 0.8em;
+    }
+    .ui.small.table,
+    td .ui.header,
+    h5.ui.header .sub.header,
+    th .ui.header,
+    th .ui.header .content {
+        font-size: 0.8rem;
+    }
+    td,
+    th {
+        padding: 0em 0.4em !important;
+    }
+    .attribution {
+        float: left;
+    }
+    .datepicker .content {
+        font-size: 12px;
+    }
+    .ui.styled.accordion {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .ui.small.table,
+    td .ui.header,
+    h5.ui.header .sub.header,
+    th .ui.header,
+    th .ui.header .content {
+        font-size: 0.7rem;
+    }
+    td,
+    th {
+        padding: 0em 0.3em !important;
+    }
+    i.icon,
+    i.icons {
+        font-size: 0.9em;
+    }
+    .ui.negative.basic.icon.button {
+        margin: 0.5em 0.4em 0.5em 0;
+    }
+    .ui.statistics .statistic>.value {
+        font-size: 2.3rem !important;
+    }
+    .ui.statistics .statistic>.label {
+        font-size: 0.7em;
+    }
+    .ui.styled.accordion .title {
+        font-size: 0.9em;
+    }
+    #addMeal {
+        font-size: 0.8rem;
+    }
+    .datepicker {
+        position: static;
+    }
+    .datepicker,
+    .datepicker .content {
+        width: 47%;
+        margin: 0 auto;
+    }
+    .datepicker .ui.input {
+        width: 40%;
+        position: relative;
+        left: 30%;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .ui.small.table,
+    td .ui.header,
+    h5.ui.header .sub.header,
+    th .ui.header,
+    th .ui.header .content {
+        font-size: 9px;
+    }
+    .ui.basic.negative.button,
+    #addFood {
+        font-size: 10px;
+    }
+    .ui.negative.basic.icon.button {
+        margin: 0.5em 0.3em 0.5em 0;
+    }
+    .ui.statistics .statistic>.value {
+        font-size: 2rem !important;
+    }
+}
+
+
+/*@media screen and (max-width: 535px) {
+    .ui.statistics .statistic>.value {
+        font-size: 2.2rem !important;
+    }
+    .ui.statistics .statistic>.label {
+        font-size: 0.7em;
+    }
+}*/
+
+
+/*@media screen and (max-width: 640px) {
+    .ui.small.table,
+    td .ui.header,
+    h5.ui.header .sub.header,
+    th .ui.header,
+    th .ui.header .content {
+        font-size: 0.8rem;
+    }
+    td,
+    th {
+        padding: 0em 0.4em !important;
+    }
+}*/
