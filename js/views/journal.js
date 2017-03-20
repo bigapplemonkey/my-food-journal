@@ -15,6 +15,8 @@ app.JournalView = Backbone.View.extend({
         this.listenTo(this.journal.get('meals'), 'add', this.addOneMeal);
         this.listenTo(this.journal.get('meals'), 'remove', this.removeOneMeal);
 
+        Backbone.on('ingredientAdd', this.render, this);
+
         this.render();
     },
 
@@ -36,7 +38,7 @@ app.JournalView = Backbone.View.extend({
         this.render();
     },
 
-    updateMetrics: function() {
-
+    ingredientAdd: function() {
+        console.log('did it!');
     }
 });

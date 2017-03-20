@@ -120,7 +120,7 @@
             <i class="dropdown icon"></i>
             <%= name %>
                 <div class="ui horizontal label float-right">
-                    <%= calories %>
+                    <%= calories %> kcal
                 </div>
         </div>
         <div class="active content">
@@ -165,124 +165,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <h5 class="ui header">
-                                <div class="content">
-                                    Oatmeal
-                                    <div class="sub header">
-                                        Shur Fine
-                                    </div>
-                                </div>
-                            </h5>
-                            <button class="mini ui negative basic icon button">
-                                <i class="minus icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            22
-                        </td>
-                        <td>
-                            22
-                        </td>
-                        <td>
-                            22
-                        </td>
-                        <td>
-                            22
-                        </td>
-                        <td>
-                            22
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 class="ui header">
-                                <div class="content">
-                                    Bananas Foster
-                                    <div class="sub header">Nutritionix
-                                    </div>
-                                </div>
-                            </h5>
-                            <button class="mini ui negative basic icon button">
-                                <i class="minus icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            15
-                        </td>
-                        <td>
-                            15
-                        </td>
-                        <td>
-                            15
-                        </td>
-                        <td>
-                            15
-                        </td>
-                        <td>
-                            15
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 class="ui header">
-                                <div class="content">
-                                    Egg White
-                                    <div class="sub header">Manhattan Bagel
-                                    </div>
-                                </div>
-                            </h5>
-                            <button class="mini ui negative basic icon button">
-                                <i class="minus icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            12
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 class="ui header">
-                                <div class="content">
-                                    Almond Butter
-                                    <div class="sub header">California Almonds
-                                    </div>
-                                </div>
-                            </h5>
-                            <button class="mini ui negative basic icon button">
-                                <i class="minus icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            11
-                        </td>
-                        <td>
-                            11
-                        </td>
-                        <td>
-                            11
-                        </td>
-                        <td>
-                            11
-                        </td>
-                        <td>
-                            11
-                        </td>
-                    </tr>
+                <tbody class="ingredient-container">
                     <tr>
                         <td></td>
                         <td>
@@ -348,7 +231,36 @@
             </div>
         </div>
     </script>
-    <script type="text/template" id="stats-template"></script>
+    <script type="text/template" id="food-template">
+        <td>
+            <button class="mini ui negative basic icon button destroy">
+                <i class="minus icon"></i>
+            </button>
+            <h5 class="ui header">
+          <div class="content">
+            <%= name %>
+            <div class="sub header">
+            <%= brand %>
+          </div>
+        </div>
+      </h5>
+        </td>
+        <td>
+            <%= servings %>
+        </td>
+        <td>
+            <%= calories %>
+        </td>
+        <td>
+            <%= carbs %>
+        </td>
+        <td>
+            <%= protein %>
+        </td>
+        <td>
+            <%= fat %>
+        </td>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -364,6 +276,7 @@
     <!-- Views -->
     <script src="js/views/journal.js"></script>
     <script src="js/views/meal.js"></script>
+    <script src="js/views/food.js"></script>
     <!-- <script src="js/views/app.js"></script>
     <script src="js/routers/router.js"></script> -->
     <script src="js/app.js"></script>
