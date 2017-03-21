@@ -53,6 +53,10 @@ td {
     text-align: center !important;
 }
 
+#journal-container {
+    display: none;
+}
+
 .ui.styled.accordion {
     margin-bottom: 1.3em;
 }

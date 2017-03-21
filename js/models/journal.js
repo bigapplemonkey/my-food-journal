@@ -3,18 +3,17 @@ var app = app || {};
 var Journal = Backbone.Model.extend({
 
     defaults: {
-        date: ''
+        date: '',
+        meals: null,
+        calories: 0,
+        carbs: 0,
+        protein: 0,
+        fat: 0
     },
 
     initialize: function() {
         this.set('meals', new app.Meals());
         this.get('meals').on('add remove', this.updateMetrics, this);
-        this.set({
-            calories: 0,
-            carbs: 0,
-            protein: 0,
-            fat: 0
-        }, { silent: true });
         // this.get('meals').add(new app.Meal({ name: 'Meal 1' }));
     },
 

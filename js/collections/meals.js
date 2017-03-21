@@ -9,7 +9,7 @@ app.Meals = Backbone.Collection.extend({
       console.log('here');
         var total = 0;
         _.each(this.models, function(meal) {
-            total += 5//meal.get('ingredients').nutrition(macro);
+            total += meal.get('ingredients').nutrition(macro);
         });
         return total;
     }

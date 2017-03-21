@@ -3,23 +3,24 @@ var app = app || {};
 app.Meal = Backbone.Model.extend({
     defaults: {
         name: '',
-        carbs: 10,
-        protein: 10,
-        fat: 10,
-        calories: 150
+        ingredients: null,
+        calories: 0,
+        carbs: 0,
+        protein: 0,
+        fat: 0
     },
 
     initialize: function() {
         this.set('ingredients', new app.Ingredients());
-        // var self = this;
-        // var updateMacros = function() {
-        //     self.set('carbs', self.get('ingredients').nutrition('carbs'));
-        //     self.set('protein', self.get('ingredients').nutrition('protein'));
-        //     self.set('fat', self.get('ingredients').nutrition('fat'));
-        //     self.set('calories', self.get('ingredients').nutrition('calories'));
-        // };
-        // this.bind('add:ingredients', updateMacros);
+        this.get('ingredients').on('add remove', this.updateMetrics, this);
+    },
+    updateMetrics: function() {
+        console.log('jorge2');
+        this.set({
+            calories: this.get('ingredients').nutrition('calories'),
+            carbs: this.get('ingredients').nutrition('carbs'),
+            protein: this.get('ingredients').nutrition('protein'),
+            fat: this.get('ingredients').nutrition('fat')
+        }, { silent: true });
     }
-
-
 });
