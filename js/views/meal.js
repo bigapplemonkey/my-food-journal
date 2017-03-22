@@ -32,6 +32,7 @@ app.MealView = Backbone.View.extend({
         var foodView = new app.FoodView({ model: food });
         console.log(foodView);
         this.$ingredientContainer.prepend(foodView.render().el);
+        // console.log(foodView.render().el.fadeIn());
         Backbone.trigger('ingredientsUpdate');
         this.updateTotals();
     },

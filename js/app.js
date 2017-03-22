@@ -14,6 +14,6 @@ $(function() {
     meal1.get('ingredients').add([food1, food2, food3]);
     app.Journal.get('meals').add(meal1);
 
-    new app.JournalView({ model: app.Journal });
+    app.journalView = new app.JournalView({ model: app.Journal });
 
 });

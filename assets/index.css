@@ -57,6 +57,10 @@ td {
     display: none;
 }
 
+/*.food-item {
+    display: none;
+}*/
+
 .ui.styled.accordion {
     margin-bottom: 1.3em;
 }
