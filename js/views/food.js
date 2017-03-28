@@ -23,8 +23,6 @@ app.FoodView = Backbone.View.extend({
     },
 
     clear: function() {
-        console.log("I'm here");
-        // this.$el.slideToggle('slow');
         this.model.destroy();
     }
 });

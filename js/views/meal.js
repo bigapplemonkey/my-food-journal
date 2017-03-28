@@ -10,6 +10,7 @@ app.MealView = Backbone.View.extend({
         this.meal = this.model;
 
         this.$el.html(this.template(this.meal.attributes));
+
         this.$ingredientContainer = this.$('.ingredient-container');
         this.$macroTotals = this.$('.total.macro');
         this.$totalTag = this.$('.total-tag');
@@ -30,9 +31,7 @@ app.MealView = Backbone.View.extend({
 
     addOneFood: function(food) {
         var foodView = new app.FoodView({ model: food });
-        console.log(foodView);
         this.$ingredientContainer.prepend(foodView.render().el);
-        // console.log(foodView.render().el.fadeIn());
         Backbone.trigger('ingredientsUpdate');
         this.updateTotals();
     },
@@ -43,8 +42,6 @@ app.MealView = Backbone.View.extend({
     },
 
     updateTotals: function() {
-        console.log(this.$macroTotals);
-
         var macros = this.meal.values();
         var view = this;
 

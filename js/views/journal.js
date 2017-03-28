@@ -16,12 +16,8 @@ app.JournalView = Backbone.View.extend({
         this.listenTo(this.journal.get('meals'), 'remove', this.removeOneMeal);
         Backbone.on('ingredientsUpdate', this.render, this);
 
-        console.log(this.journal.get('meals'))
-
         var view = this;
         _.each(this.journal.get('meals').models, function(meal) {
-            console.log(meal.attributes);
-            console.log(view.$mealsContainer);
             view.$mealsContainer.append(new app.MealView({ model: meal }).render().el);
         });
 
@@ -43,21 +39,13 @@ app.JournalView = Backbone.View.extend({
     },
 
     addOneMeal: function(meal) {
-        console.log("Adding!");
-        console.log(meal);
         var mealView = new app.MealView({ model: meal });
         this.$mealsContainer.append(mealView.render().el);
-        // this.render();
     },
 
     removeOneMeal: function(meal) {
-        console.log("Removing!");
         meal.trigger('destroy', meal);
         if (meal.get('ingredients').length > 0) this.render();
-    },
-
-    ingredientAdd: function() {
-        console.log('did it!');
     },
 
     updateDonutChart: function() {
@@ -67,7 +55,6 @@ app.JournalView = Backbone.View.extend({
         _.each(['carbs', 'protein', 'fat'], function(macro) {
             macrosPercenteges.push(Math.round((view.journal.get(macro) / total) * 100));
         });
-        console.log(macrosPercenteges);
         myDonut.data.datasets[0].data = macrosPercenteges;
         myDonut.update();
     },
@@ -96,7 +83,7 @@ app.JournalView = Backbone.View.extend({
         var columns = ['Calories', 'Carbs', 'Protein', 'Fat'];
         var rows = [
             [
-                this.journal.get('calories') + 'kcal',
+                this.journal.get('calories') + ' kcal',
                 this.journal.get('carbs') + ' g',
                 this.journal.get('protein') + ' g',
                 this.journal.get('fat') + ' g'

@@ -14,11 +14,9 @@ var Journal = Backbone.Model.extend({
     initialize: function() {
         this.set('meals', new app.Meals());
         this.get('meals').on('add remove', this.updateMetrics, this);
-        // this.get('meals').add(new app.Meal({ name: 'Meal 1' }));
     },
 
     updateMetrics: function() {
-        console.log('jorge');
         this.set({
             calories: this.get('meals').nutrition('calories'),
             carbs: this.get('meals').nutrition('carbs'),
@@ -27,5 +25,3 @@ var Journal = Backbone.Model.extend({
         }, { silent: true });
     }
 });
-
-app.Journal = new Journal({ date: 'test' });

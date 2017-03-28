@@ -14,8 +14,8 @@ app.Meal = Backbone.Model.extend({
         this.set('ingredients', new app.Ingredients());
         this.get('ingredients').on('add remove', this.updateMetrics, this);
     },
+
     updateMetrics: function() {
-        console.log('jorge2');
         this.set({
             calories: this.get('ingredients').nutrition('calories'),
             carbs: this.get('ingredients').nutrition('carbs'),
