@@ -89,7 +89,7 @@
                     </div>
                     <div class="name-container">
                         <div class="ui input">
-                            <input type="text" placeholder="Breakfast...">
+                            <input type="text" class="name-input" placeholder="Breakfast...">
                         </div>
                     </div>
                 </div>
@@ -295,22 +295,11 @@
             maxResults: 10
         });
     $(document).ready(function() {
-        $('.tabular.menu .item').tab({
-            history: false
-        });
         $("#addFood").click(function() {
             $('.modal-header').text('Search our food database');
             $('#addButton').html('<i class="checkmark icon"></i>Add');
             $('.name-container').hide();
             $('.search-container').show();
-            $('.ui.basic.modal')
-                .modal('show');
-        });
-        $("#addMeal").click(function() {
-            $('.modal-header').text('Please enter a name for your meal');
-            $('#addButton').html('<i class="checkmark icon"></i>Add');
-            $('.search-container').hide();
-            $('.name-container').show();
             $('.ui.basic.modal')
                 .modal('show');
         });
@@ -323,10 +312,6 @@
                 .modal('show');
         });
     });
-    $('.ui.accordion')
-        .accordion({
-            exclusive: false
-        });
 
     var ctx1 = $('#myDoughnut');
     var ctx2 = $('#myLine');

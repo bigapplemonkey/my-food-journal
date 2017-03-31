@@ -6,35 +6,60 @@ app.JournalView = Backbone.View.extend({
 
     template: _.template($('#metrics-template').html()),
 
+    events: {
+        'click #addMeal': 'showAddMealModal'
+    },
+
     initialize: function() {
+        //View's model
         this.journal = this.model;
 
+        //Caching selectors
         this.$mealsContainer = this.$('.meals-container');
         this.$metricsContainer = this.$('.statistics');
+        this.$modalHeader = this.$('.modal-header');
+        this.$modalAddButton = this.$('#addButton');
+        this.$modalSearch = this.$('.search-container');
+        this.$modalNameContainer = this.$('.name-container');
+        this.$modal = $('.ui.basic.modal');
+        this.$modalInput = $('.name-input');
 
+        //Listening some events
         this.listenTo(this.journal.get('meals'), 'add', this.addOneMeal);
         this.listenTo(this.journal.get('meals'), 'remove', this.removeOneMeal);
         Backbone.on('ingredientsUpdate', this.render, this);
 
+        //Semantic-UI Elements' inizializations
+        this.$('.ui.accordion')
+            .accordion({
+                exclusive: false
+            });
+
+        //Attaching meals if any
         var view = this;
         _.each(this.journal.get('meals').models, function(meal) {
             view.$mealsContainer.append(new app.MealView({ model: meal }).render().el);
         });
 
+        //Updating metris and charts
         this.$metricsContainer.html(this.template(this.journal.attributes));
         this.updateDonutChart();
 
+        //Show view
         this.$el.fadeIn('slow');
     },
 
     render: function() {
-        var view = this;
         this.journal.updateMetrics();
+
+        var view = this;
+        //Updating metris and charts
         this.$metricsContainer.fadeOut('fast', function() {
             view.$metricsContainer.html(view.template(view.journal.attributes));
             view.$metricsContainer.fadeIn('fast');
         });
         this.updateDonutChart();
+
         return this;
     },
 
@@ -52,11 +77,31 @@ app.JournalView = Backbone.View.extend({
         var total = this.journal.get('carbs') + this.journal.get('protein') + this.journal.get('fat');
         var macrosPercenteges = [];
         var view = this;
+
         _.each(['carbs', 'protein', 'fat'], function(macro) {
             macrosPercenteges.push(Math.round((view.journal.get(macro) / total) * 100));
         });
         myDonut.data.datasets[0].data = macrosPercenteges;
         myDonut.update();
+    },
+
+    showAddMealModal: function() {
+        this.$modalHeader.text('Please enter a name for your meal');
+        this.$modalAddButton.html('<i class="checkmark icon"></i>Add');
+        this.$modalSearch.hide();
+        this.$modalNameContainer.show();
+
+        var view = this;
+        this.$modal.modal({
+                onHide: function() {
+                    console.log('Hidden');
+                },
+                onApprove: function() {
+                    var name = view.$modalInput.val();
+                    view.journal.get('meals').add({ name: name });
+                }
+            })
+            .modal('show');
     },
 
     //TODO: Move this to sepate PDF generator file
