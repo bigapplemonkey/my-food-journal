@@ -6,6 +6,11 @@ app.MealView = Backbone.View.extend({
 
     template: _.template($('#meal-template').html()),
 
+    events: {
+        'click #deleteMeal': 'promptMealDeletion',
+        'click #addFood': 'promptFoodSearch'
+    },
+
     initialize: function(options) {
         this.meal = this.model;
 
@@ -14,6 +19,7 @@ app.MealView = Backbone.View.extend({
         this.$ingredientContainer = this.$('.ingredient-container');
         this.$macroTotals = this.$('.total.macro');
         this.$totalTag = this.$('.total-tag');
+        this.$deleteMealButton = this.$('#deleteMeal');
 
         this.listenTo(this.meal, 'destroy', this.remove);
         this.listenTo(this.meal.get('ingredients'), 'add', this.addOneFood);
@@ -25,7 +31,8 @@ app.MealView = Backbone.View.extend({
         });
     },
 
-    render: function() {
+    render: function(isFirst) {
+        if (isFirst) this.$deleteMealButton.addClass('disabled');
         return this;
     },
 
@@ -57,5 +64,13 @@ app.MealView = Backbone.View.extend({
             view.$totalTag.slideToggle(300);
         });
 
+    },
+
+    promptMealDeletion: function() {
+        Backbone.trigger('mealDeleted', this.meal);
+    },
+
+    promptFoodSearch: function() {
+        Backbone.trigger('foodSearch', this.meal);
     }
 });

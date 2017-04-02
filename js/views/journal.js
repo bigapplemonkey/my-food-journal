@@ -29,6 +29,8 @@ app.JournalView = Backbone.View.extend({
         this.listenTo(this.journal.get('meals'), 'add', this.addOneMeal);
         this.listenTo(this.journal.get('meals'), 'remove', this.removeOneMeal);
         Backbone.on('ingredientsUpdate', this.ingredientsUpdate, this);
+        Backbone.on('mealDeleted', this.showDeleteMealModal, this);
+        Backbone.on('foodSearch', this.showFoosSearchlModal, this);
 
         //Semantic-UI Elements' inizializations
         this.$('.ui.accordion')
@@ -38,8 +40,8 @@ app.JournalView = Backbone.View.extend({
 
         //Attaching meals if any
         var view = this;
-        _.each(this.journal.get('meals').models, function(meal) {
-            view.$mealsContainer.append(new app.MealView({ model: meal }).render().el);
+        _.each(this.journal.get('meals').models, function(meal, index) {
+            view.$mealsContainer.append(new app.MealView({ model: meal }).render(index === 0).el);
         });
 
         //Chart.js initialization
@@ -67,7 +69,7 @@ app.JournalView = Backbone.View.extend({
 
     addOneMeal: function(meal) {
         var mealView = new app.MealView({ model: meal });
-        this.$mealsContainer.append(mealView.render().el);
+        this.$mealsContainer.append(mealView.render(false).el);
         app.chartHelper.updateColumnChart(this.journal.getMealCalories());
     },
 
@@ -82,11 +84,12 @@ app.JournalView = Backbone.View.extend({
         this.$modalAddButton.html('<i class="checkmark icon"></i>Add');
         this.$modalSearch.hide();
         this.$modalNameContainer.show();
+        this.$modalInput.val('Meal ' + (this.journal.get('meals').length + 1));
 
         var view = this;
         this.$modal.modal({
                 onHide: function() {
-                    console.log('Hidden');
+                    view.$modalInput.val('');
                 },
                 onApprove: function() {
                     var name = view.$modalInput.val();
@@ -101,6 +104,35 @@ app.JournalView = Backbone.View.extend({
         app.chartHelper.updateDonutChart(this.journal.getMacros());
         app.chartHelper.updateColumnChart(this.journal.getMealCalories());
         this.render();
+    },
+
+    showDeleteMealModal: function(meal) {
+        this.$modalHeader.text('Are you sure you want to delete ' + meal.get('name') + '?');
+        this.$modalAddButton.html('<i class="checkmark icon"></i>Delete');
+        this.$modalSearch.hide();
+        this.$modalNameContainer.hide();
+        var view = this;
+        this.$modal.modal({
+                onApprove: function() {
+                    view.removeOneMeal(meal);
+                }
+            })
+            .modal('show');
+    },
+
+    showFoosSearchlModal: function(meal) {
+        this.$modalHeader.text('Search our food database');
+        this.$modalAddButton.html('<i class="checkmark icon"></i>Add');
+        this.$modalNameContainer.hide();
+        this.$modalSearch.show();
+
+        var view = this;
+        this.$modal.modal({
+                onApprove: function() {
+                    console.log('yes');
+                }
+            })
+            .modal('show');
     },
 
     pdfGenerator: function(userName) {

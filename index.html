@@ -297,24 +297,6 @@
             },
             maxResults: 10
         });
-    $(document).ready(function() {
-        $("#addFood").click(function() {
-            $('.modal-header').text('Search our food database');
-            $('#addButton').html('<i class="checkmark icon"></i>Add');
-            $('.name-container').hide();
-            $('.search-container').show();
-            $('.ui.basic.modal')
-                .modal('show');
-        });
-        $("#deleteMeal").click(function() {
-            $('.modal-header').text('Are you sure you want to delete Meal 3?');
-            $('#addButton').html('<i class="checkmark icon"></i>Delete');
-            $('.search-container').hide();
-            $('.name-container').hide();
-            $('.ui.basic.modal')
-                .modal('show');
-        });
-    });
     </script>
 </body>
 
