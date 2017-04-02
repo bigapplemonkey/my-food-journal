@@ -1,3 +1,4 @@
+'use strict';
 var app = app || {};
 
 app.JournalView = Backbone.View.extend({
@@ -22,12 +23,12 @@ app.JournalView = Backbone.View.extend({
         this.$modalSearch = this.$('.search-container');
         this.$modalNameContainer = this.$('.name-container');
         this.$modal = $('.ui.basic.modal');
-        this.$modalInput = $('.name-input');
+        this.$modalInput = this.$('.name-input');
 
         //Listening some events
         this.listenTo(this.journal.get('meals'), 'add', this.addOneMeal);
         this.listenTo(this.journal.get('meals'), 'remove', this.removeOneMeal);
-        Backbone.on('ingredientsUpdate', this.render, this);
+        Backbone.on('ingredientsUpdate', this.ingredientsUpdate, this);
 
         //Semantic-UI Elements' inizializations
         this.$('.ui.accordion')
@@ -41,24 +42,24 @@ app.JournalView = Backbone.View.extend({
             view.$mealsContainer.append(new app.MealView({ model: meal }).render().el);
         });
 
-        //Updating metris and charts
+        //Chart.js initialization
+        app.chartHelper.initializeCharts(this.$('#myDoughnut'), this.$('#myLine'), this.journal.getMacros());
+
+        //Updating metris
         this.$metricsContainer.html(this.template(this.journal.attributes));
-        this.updateDonutChart();
 
         //Show view
         this.$el.fadeIn('slow');
     },
 
     render: function() {
-        this.journal.updateMetrics();
-
         var view = this;
         //Updating metris and charts
         this.$metricsContainer.fadeOut('fast', function() {
             view.$metricsContainer.html(view.template(view.journal.attributes));
             view.$metricsContainer.fadeIn('fast');
         });
-        this.updateDonutChart();
+        app.chartHelper.updateDonutChart(this.journal.getMacros());
 
         return this;
     },
@@ -71,18 +72,6 @@ app.JournalView = Backbone.View.extend({
     removeOneMeal: function(meal) {
         meal.trigger('destroy', meal);
         if (meal.get('ingredients').length > 0) this.render();
-    },
-
-    updateDonutChart: function() {
-        var total = this.journal.get('carbs') + this.journal.get('protein') + this.journal.get('fat');
-        var macrosPercenteges = [];
-        var view = this;
-
-        _.each(['carbs', 'protein', 'fat'], function(macro) {
-            macrosPercenteges.push(Math.round((view.journal.get(macro) / total) * 100));
-        });
-        myDonut.data.datasets[0].data = macrosPercenteges;
-        myDonut.update();
     },
 
     showAddMealModal: function() {
@@ -102,6 +91,11 @@ app.JournalView = Backbone.View.extend({
                 }
             })
             .modal('show');
+    },
+
+    ingredientsUpdate: function() {
+        this.journal.updateMetrics();
+        this.render();
     },
 
     //TODO: Move this to sepate PDF generator file

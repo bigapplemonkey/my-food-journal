@@ -23,5 +23,16 @@ var Journal = Backbone.Model.extend({
             protein: this.get('meals').nutrition('protein'),
             fat: this.get('meals').nutrition('fat')
         }, { silent: true });
+    },
+
+    getMacros: function() {
+        var total = this.get('carbs') + this.get('protein') + this.get('fat');
+        var macrosPercenteges = [];
+
+        var model = this;
+        _.each(['carbs', 'protein', 'fat'], function(macro) {
+            macrosPercenteges.push(Math.round((model.get(macro) / total) * 100));
+        });
+        return macrosPercenteges;
     }
 });
