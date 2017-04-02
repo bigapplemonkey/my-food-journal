@@ -34,5 +34,14 @@ var Journal = Backbone.Model.extend({
             macrosPercenteges.push(Math.round((model.get(macro) / total) * 100));
         });
         return macrosPercenteges;
+    },
+
+    getMealCalories: function() {
+        var getMealCalories = {};
+
+        _.each(this.get('meals').models, function(meal) {
+            getMealCalories[meal.get('name')] = meal.get('calories');
+        });
+        return getMealCalories;
     }
 });

@@ -43,7 +43,10 @@ app.JournalView = Backbone.View.extend({
         });
 
         //Chart.js initialization
-        app.chartHelper.initializeCharts(this.$('#myDoughnut'), this.$('#myLine'), this.journal.getMacros());
+        app.chartHelper.initializeCharts(this.$('#myDoughnut'),
+            this.$('#myLine'),
+            this.journal.getMacros(),
+            this.journal.getMealCalories());
 
         //Updating metris
         this.$metricsContainer.html(this.template(this.journal.attributes));
@@ -54,24 +57,24 @@ app.JournalView = Backbone.View.extend({
 
     render: function() {
         var view = this;
-        //Updating metris and charts
+        //Updating metris
         this.$metricsContainer.fadeOut('fast', function() {
             view.$metricsContainer.html(view.template(view.journal.attributes));
             view.$metricsContainer.fadeIn('fast');
         });
-        app.chartHelper.updateDonutChart(this.journal.getMacros());
-
         return this;
     },
 
     addOneMeal: function(meal) {
         var mealView = new app.MealView({ model: meal });
         this.$mealsContainer.append(mealView.render().el);
+        app.chartHelper.updateColumnChart(this.journal.getMealCalories());
     },
 
     removeOneMeal: function(meal) {
         meal.trigger('destroy', meal);
-        if (meal.get('ingredients').length > 0) this.render();
+        if (meal.get('ingredients').length > 0) app.chartHelper.updateDonutChart(this.journal.getMacros());
+        app.chartHelper.updateColumnChart(this.journal.getMealCalories());
     },
 
     showAddMealModal: function() {
@@ -95,6 +98,8 @@ app.JournalView = Backbone.View.extend({
 
     ingredientsUpdate: function() {
         this.journal.updateMetrics();
+        app.chartHelper.updateDonutChart(this.journal.getMacros());
+        app.chartHelper.updateColumnChart(this.journal.getMealCalories());
         this.render();
     },
 
