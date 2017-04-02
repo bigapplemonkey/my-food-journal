@@ -99,6 +99,6 @@ app.JournalView = Backbone.View.extend({
     },
 
     pdfGenerator: function(userName) {
-        app.pdfHelper.generatePDF(this.journal);
+        app.pdfHelper.generatePDF(this.journal, userName);
     }
 });
