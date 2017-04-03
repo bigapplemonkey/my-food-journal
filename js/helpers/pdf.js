@@ -101,7 +101,7 @@ var app = app || {};
                     food.get('fat')
                 ]);
             });
-            rows.push(['', 'Total',
+            rows.reverse().push(['', 'Total',
                 meal.get('ingredients').nutrition('calories'),
                 meal.get('ingredients').nutrition('carbs'),
                 meal.get('ingredients').nutrition('protein'),
@@ -115,7 +115,7 @@ var app = app || {};
                 tableLineColor: 0,
                 tableLineWidth: 0.2,
                 headerStyles: { textColor: 0 },
-                styles: { fillColor: false, halign: 'center' },
+                styles: { fillColor: false, halign: 'center', overflow: 'linebreak'},
                 drawCell: function(cell, data) {
                     if (data.row.index === data.table.rows.length - 1) {
                         doc.setFontStyle('bold');
