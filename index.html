@@ -84,7 +84,7 @@
                         </div>
                         <div class="ui right labeled input">
                             <div class="ui label">Qty</div>
-                            <input type="text" maxlength="5" placeholder="0.0">
+                            <input class="quantity-input" type="text" maxlength="5" placeholder="0.0">
                         </div>
                     </div>
                     <div class="name-container">
@@ -276,28 +276,6 @@
     <!-- <script src="js/views/app.js"></script>
     <script src="js/routers/router.js"></script> -->
     <script src="js/app.js"></script>
-    <script>
-    //TODO: Move all the UI initializations to their respective views
-    $('.ui.search')
-        .search({
-            apiSettings: {
-                url: 'https://api.nutritionix.com/v1_1/search/{query}?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=bf2d9982&appKey=fdf2de5c6c4fca7380026f2eead1f0f3',
-                onResponse: function(response) {
-                    console.log(_.pluck(response.hits, 'fields'));
-                    console.log(response.hits.length + ' - ' + response.total_hits);
-                    return {
-                        hits: _.pluck(response.hits, 'fields')
-                    };
-                }
-            },
-            fields: {
-                results: 'hits',
-                title: 'item_name',
-                description: 'brand_name'
-            },
-            maxResults: 10
-        });
-    </script>
 </body>
 
 </html>
